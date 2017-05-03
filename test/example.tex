@@ -1,0 +1,340 @@
+\documentclass{article}
+
+
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+
+% \setmathfont[ExternalLocation=fonts/
+%   ]{DejaVuSansMono.ttf}
+% \newfontfamily\djvu[
+%   ExternalLocation=fonts/
+%   ,  BoldFont=DejaVuSansMono-Bold.ttf
+%   , BoldItalicFont=DejaVuSansMono-BoldOblique.ttf
+%   , ItalicFont=DejaVuSansMono-Oblique.ttf
+%   ]{DejaVuSansMono.ttf}
+
+% \setmainfont[ExternalLocation=fonts/
+%   , BoldFont=DejaVuSans-Bold.ttf
+%   , BoldItalicFont=DejaVuSans-BoldItalic.ttf
+%   , ItalicFont=DejaVuSans-Italic.ttf
+%   ]{DejaVuSans.ttf}
+
+\setmonofont[
+    BoldFont=DejaVuSansMono-Bold.ttf
+  , BoldItalicFont=DejaVuSansMono-BoldOblique.ttf
+  , ItalicFont=DejaVuSansMono-Oblique.ttf
+  ]{DejaVuSansMono.ttf}
+
+% \setmathfont{DejaVuMathTeXGyre.ttf}
+% \newfontfamily\mathfont{DejaVuMathTeXGyre.ttf}
+
+% \setmathfont[ExternalLocation=fonts/
+%   , BoldFont=xits-mathbold.otf
+%   ]{xits-math.otf}
+% \newfontfamily\mathfont{fonts/xits-math.otf}
+
+% \setmainfont[
+%     BoldFont=SourceSansPro-Semibold.otf
+%   , BoldItalicFont=SourceSansPro-SemiboldIt.otf
+%   , ItalicFont=SourceSansPro-It.otf
+%   ]{SourceSansPro-Regular.otf}
+
+% \setmonofont[
+%   , BoldFont=SourceCodePro-Semibold.ttf
+%   , BoldItalicFont=SourceCodePro-SemiboldIt.ttf
+%   , ItalicFont=SourceCodePro-It.ttf
+%   ]{SourceCodePro-Regular.ttf}
+
+
+\usepackage{xcolor}
+\definecolor{LightGray}{gray}{0.9}
+%\definecolor{DarkGray}{gray}{0.1}
+
+%\pagecolor{DarkGray}
+
+% --------------------------------------------------------------------------
+% Color definitions.
+% --------------------------------------------------------------------------
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.8}
+\definecolor{blue(munsell)}{rgb}{0.0, 0.5, 0.69}
+\definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
+\definecolor{blu}{RGB}{1,0,102}
+\definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
+\definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
+\definecolor{cadet}{rgb}{0.33, 0.41, 0.47}
+
+% --------------------------------------------------------------------------
+% My palette.
+% --------------------------------------------------------------------------
+\definecolor{energy}{RGB}{49,247,250}
+\definecolor{delicate}{RGB}{67,179,223}
+\definecolor{faded}{RGB}{76,117,195}
+\definecolor{plum}{RGB}{87,78,164}
+\definecolor{petunias}{RGB}{109,80,139}
+\definecolor{letour}{RGB}{101,41,105}
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\title{Code Listing}
+\author{someone}
+\date{ }
+
+\usepackage{minted}
+\setminted[cagda]{
+  bgcolor   = aliceblue
+, fontsize  = \footnotesize
+, frame     = none
+% , framerule = 0.4pt
+% , framesep  = 0pt
+, style     = CustomAgda
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Code examples}
+
+\begin{listing}[ht]
+\begin{minted}{cagda}
+------------------------------------------------------------------------------
+-- Agda-Prop Library.
+-- Syntax definitions.
+------------------------------------------------------------------------------
+
+open import Data.Nat using ( ℕ )
+
+module Data.Prop.Syntax ( n : ℕ ) where
+
+------------------------------------------------------------------------------
+
+open import Data.Bool
+  renaming ( _∧_ to _&&_; _∨_ to _||_ )
+  using    ( Bool; true; false; not )
+
+open import Data.Fin  using ( Fin; #_ )
+open import Data.List using ( List ; [] ; _∷_ ; _++_ ; [_] )
+
+open import Relation.Binary.PropositionalEquality using ( _≡_; refl )
+
+------------------------------------------------------------------------------
+
+-- Proposition data type.
+
+data Prop : Set where
+  Var              : Fin n → Prop
+  ⊤                : Prop
+  ⊥                : Prop
+  _∧_ _∨_ _⇒_ _⇔_  : (φ ψ : Prop) → Prop
+  ¬_               : (φ : Prop) → Prop
+
+
+infix  11 ¬_
+infixl 8 _∧_ _∨_
+infixr 7 _⇒_ _⇔_
+
+-- Context is a list (set) of hypotesis and axioms.
+
+Ctxt : Set
+Ctxt = List Prop
+
+infixl 5 _,_
+_,_ : Ctxt → Prop → Ctxt
+Γ , φ = Γ ++ [ φ ]
+
+∅ : Ctxt
+∅ = []
+
+infix 30 _⨆_
+_⨆_ : Ctxt → Ctxt → Ctxt
+Γ ⨆ Δ = Γ ++ Δ
+
+infix 4 _∈_
+data _∈_ (φ : Prop) : Ctxt → Set where
+  here  : ∀ {Γ} → φ ∈ Γ , φ
+  there : ∀ {Γ} → (ψ : Prop) → φ ∈ Γ → φ ∈ Γ , ψ
+  ⨆-ext : ∀ {Γ} → (Δ : Ctxt) → φ ∈ Γ → φ ∈ Γ ⨆ Δ
+
+_⊆_ : Ctxt → Ctxt → Set
+Γ ⊆ Η = ∀ {φ} → φ ∈ Γ → φ ∈ Η
+
+------------------------------------------------------------------------
+-- Theorem data type.
+
+infix 3 _⊢_
+
+data _⊢_ : (Γ : Ctxt)(φ : Prop) → Set where
+
+-- Hyp.
+
+  assume   : ∀ {Γ} → (φ : Prop)           → Γ , φ ⊢ φ
+
+  axiom    : ∀ {Γ} → (φ : Prop)           → φ ∈ Γ
+                                          → Γ ⊢ φ
+
+  weaken   : ∀ {Γ} {φ} → (ψ : Prop)       → Γ ⊢ φ
+                                          → Γ , ψ ⊢ φ
+-- Top and Bottom.
+
+  ⊤-intro  : ∀ {Γ}                        → Γ ⊢ ⊤
+
+  ⊥-elim   : ∀ {Γ} → (φ : Prop)           → Γ ⊢ ⊥
+                                          → Γ ⊢ φ
+-- Negation.
+
+  ¬-intro  : ∀ {Γ} {φ}                    → Γ , φ ⊢ ⊥
+                                          → Γ ⊢ ¬ φ
+
+  ¬-elim   : ∀ {Γ} {φ}                    → Γ ⊢ ¬ φ → Γ ⊢ φ
+                                          → Γ ⊢ ⊥
+-- Conjunction.
+
+  ∧-intro  : ∀ {Γ} {φ ψ}                  → Γ ⊢ φ → Γ ⊢ ψ
+                                          → Γ ⊢ φ ∧ ψ
+
+  ∧-proj₁  : ∀ {Γ} {φ ψ}                  → Γ ⊢ φ ∧ ψ
+                                          → Γ ⊢ φ
+
+  ∧-proj₂  : ∀ {Γ} {φ ψ}                  → Γ ⊢ φ ∧ ψ
+                                          → Γ ⊢ ψ
+-- Disjunction.
+
+  ∨-intro₁ : ∀ {Γ} {φ} → (ψ : Prop)       → Γ ⊢ φ
+                                          → Γ ⊢ φ ∨ ψ
+
+  ∨-intro₂ : ∀ {Γ} {ψ} → (φ : Prop)       → Γ ⊢ ψ
+                                          → Γ ⊢ φ ∨ ψ
+
+  ∨-elim  : ∀ {Γ} {φ ψ χ}                 → Γ , φ ⊢ χ
+                                          → Γ , ψ ⊢ χ
+                                          → Γ , φ ∨ ψ ⊢ χ
+-- Implication.
+
+  ⇒-intro  : ∀ {Γ} {φ ψ}                  → Γ , φ ⊢ ψ
+                                          → Γ ⊢ φ ⇒ ψ
+
+  ⇒-elim   : ∀ {Γ} {φ ψ}                  → Γ ⊢ φ ⇒ ψ → Γ ⊢ φ
+                                          → Γ ⊢ ψ
+-- Biconditional.
+
+  ⇔-intro  : ∀ {Γ} {φ ψ}                  → Γ , φ ⊢ ψ
+                                          → Γ , ψ ⊢ φ
+                                          → Γ ⊢ φ ⇔ ψ
+
+  ⇔-elim₁ : ∀ {Γ} {φ ψ}                   → Γ ⊢ φ → Γ ⊢ φ ⇔ ψ
+                                          → Γ ⊢ ψ
+
+  ⇔-elim₂ : ∀ {Γ} {φ ψ}                   → Γ ⊢ ψ → Γ ⊢ φ ⇔ ψ
+                                          → Γ ⊢ φ
+
+------------------------------------------------------------------------
+
+postulate
+
+  PEM   : ∀ {Γ} {φ}                       → Γ ⊢ φ ∨ ¬ φ
+
+  RAA   : ∀ {Γ} {φ}                       → Γ , ¬ φ ⊢ ⊥
+                                          → Γ ⊢ φ
+
+  weaken-Δ₁ : ∀ {Γ} {φ} → (Δ : Ctxt)      → Γ ⊢ φ
+                                          → Γ ⨆ Δ ⊢ φ
+
+  weaken-Δ₂ :  ∀ {Γ} {φ} → (Δ : Ctxt)     → Γ ⊢ φ
+                                          → Δ ⨆ Γ ⊢ φ
+------------------------------------------------------------------------------
+-- Athena version 0.1-21d73e9.
+-- TSTP file: test/prop-pack/problems/basic/basic-4.tstp.
+------------------------------------------------------------------------------
+
+module basic-4 where
+
+------------------------------------------------------------------------------
+
+open import ATP.Metis 1 public
+open import Data.Prop 1 public
+
+------------------------------------------------------------------------------
+
+-- Variable.
+
+p : Prop
+p = Var (# 0)
+
+-- Axiom.
+
+a₁ : Prop
+a₁ = p
+
+-- Premise.
+
+Γ : Ctxt
+Γ = [ a₁ ]
+
+-- Conjecture.
+
+goal : Prop
+goal = p
+
+-- Subgoal.
+
+subgoal₀ : Prop
+subgoal₀ = p
+
+------------------------------------------------------------------------------
+-- Proof.
+------------------------------------------------------------------------------
+
+proof₀ : Γ ⊢ subgoal₀
+proof₀ =
+  (RAA
+    (atp-canonicalize
+      (atp-simplify
+        (atp-canonicalize
+          (atp-strip
+            (assume {Γ = Γ}
+              (atp-negate subgoal₀))))
+        (atp-canonicalize
+          (weaken (atp-negate subgoal₀)
+            (assume {Γ = ∅} a₁))))))
+
+proof : Γ ⊢ goal
+proof =
+  ⇒-elim
+    atp-splitGoal
+    proof₀
+
+atp-conjunct
+  : ∀ {Γ} {φ}
+  → (ω : Prop)
+  → Γ ⊢ φ
+  → Γ ⊢ conjunct φ ω
+
+atp-conjunct {Γ} {φ ∧ ψ} ω Γ⊢φ
+  with ⌊ eq φ ω ⌋ | ⌊ eq ψ ω ⌋
+... | true  | _     = ∧-proj₁ Γ⊢φ
+... | false | true  = ∧-proj₂ Γ⊢φ
+... | false | false =
+  atp-conjunct {Γ = Γ} {φ = φ} ω (∧-proj₁ Γ⊢φ)
+atp-conjunct {_} {Var x}  _ = id
+atp-conjunct {_} {⊤}      _ = id
+atp-conjunct {_} {⊥}      _ = id
+atp-conjunct {_} {φ ∨ ψ}  _ = id
+atp-conjunct {_} {φ ⇒ ψ}  _ = id
+atp-conjunct {_} {φ ⇔ ψ}  _ = id
+atp-conjunct {_} {¬ φ}    _ = id
+\end{minted}
+\caption{Minimal working example}
+\label{listing:1}
+\end{listing}
+
+
+\end{document}

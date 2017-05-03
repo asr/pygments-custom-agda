@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f0f8ff; color: #000000; font-weight: bold }
+body .c { color: #82827c } /* Comment */
+body .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+body .k { color: #6D508B; font-weight: bold } /* Keyword */
+body .o { color: #6D508B; font-weight: bold } /* Operator */
+body .ch { color: #82827c } /* Comment.Hashbang */
+body .cm { color: #82827c } /* Comment.Multiline */
+body .cp { color: #999999 } /* Comment.Preproc */
+body .cpf { color: #82827c } /* Comment.PreprocFile */
+body .c1 { color: #82827c } /* Comment.Single */
+body .cs { color: #999999 } /* Comment.Special */
+body .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+body .ge { color: #000000; font-style: italic } /* Generic.Emph */
+body .gr { color: #aa0000 } /* Generic.Error */
+body .gh { color: #999999 } /* Generic.Heading */
+body .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #555555 } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #aaaaaa } /* Generic.Subheading */
+body .gt { color: #aa0000 } /* Generic.Traceback */
+body .kc { color: #6D508B; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #6D508B; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #564ea3; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #642969; font-weight: bold } /* Keyword.Pseudo */
+body .kr { color: #6D508B; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #574EA4; font-weight: bold } /* Keyword.Type */
+body .m { color: #009999 } /* Literal.Number */
+body .s { color: #CD5555 } /* Literal.String */
+body .na { color: #008080 } /* Name.Attribute */
+body .nb { color: #0086B3 } /* Name.Builtin */
+body .nc { color: #445588; font-weight: bold } /* Name.Class */
+body .no { color: #008080 } /* Name.Constant */
+body .nd { color: #3c5d5d; font-weight: bold } /* Name.Decorator */
+body .ni { color: #800080 } /* Name.Entity */
+body .ne { color: #990000; font-weight: bold } /* Name.Exception */
+body .nf { color: #6D508B; font-weight: bold } /* Name.Function */
+body .nl { color: #990000; font-weight: bold } /* Name.Label */
+body .nn { color: #555555 } /* Name.Namespace */
+body .nt { color: #000080 } /* Name.Tag */
+body .nv { color: #008080 } /* Name.Variable */
+body .ow { color: #6D508B; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb; font-weight: bold } /* Text.Whitespace */
+body .mb { color: #009999 } /* Literal.Number.Bin */
+body .mf { color: #009999 } /* Literal.Number.Float */
+body .mh { color: #009999 } /* Literal.Number.Hex */
+body .mi { color: #009999 } /* Literal.Number.Integer */
+body .mo { color: #009999 } /* Literal.Number.Oct */
+body .sa { color: #CD5555 } /* Literal.String.Affix */
+body .sb { color: #dd1144 } /* Literal.String.Backtick */
+body .sc { color: #dd1144 } /* Literal.String.Char */
+body .dl { color: #CD5555 } /* Literal.String.Delimiter */
+body .sd { color: #dd1144 } /* Literal.String.Doc */
+body .s2 { color: #dd1144 } /* Literal.String.Double */
+body .se { color: #dd1144 } /* Literal.String.Escape */
+body .sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+body .si { color: #dd1144 } /* Literal.String.Interpol */
+body .sx { color: #cb6c20 } /* Literal.String.Other */
+body .sr { color: #B452CD } /* Literal.String.Regex */
+body .s1 { color: #dd1144 } /* Literal.String.Single */
+body .ss { color: #990073 } /* Literal.String.Symbol */
+body .bp { color: #999999 } /* Name.Builtin.Pseudo */
+body .fm { color: #6D508B; font-weight: bold } /* Name.Function.Magic */
+body .vc { color: #008080 } /* Name.Variable.Class */
+body .vg { color: #008080 } /* Name.Variable.Global */
+body .vi { color: #008080 } /* Name.Variable.Instance */
+body .vm { color: #008080 } /* Name.Variable.Magic */
+body .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight"><pre><span></span><span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Agda-Prop Library.</span>
+<span class="c1">-- Syntax definitions.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Nat</span> <span class="kr">using</span> <span class="o">(</span> ℕ <span class="o">)</span>
+
+<span class="kr">module</span> <span class="n">Data.Prop.Syntax</span> <span class="o">(</span> n <span class="ow">:</span> ℕ <span class="o">)</span> <span class="kr">where</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Bool</span>
+  <span class="kr">renaming</span> <span class="o">(</span> _∧_ <span class="kp">to</span> _&amp;&amp;_; _∨_ <span class="kp">to</span> _||_ <span class="o">)</span>
+  <span class="kr">using</span>    <span class="o">(</span> <span class="kt">Bool</span>; true; false; not <span class="o">)</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Fin</span>  <span class="kr">using</span> <span class="o">(</span> <span class="kt">Fin</span>; #_ <span class="o">)</span>
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.List</span> <span class="kr">using</span> <span class="o">(</span> <span class="kt">List</span> ; [] ; _∷_ ; _++_ ; [_] <span class="o">)</span>
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Relation.Binary.PropositionalEquality</span>
+  <span class="kr">using</span> <span class="o">(</span> _≡_; refl; cong; <span class="kp">trans;</span> sym; <span class="kp">subst</span><span class="o">)</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="c1">-- Proposition data type.</span>
+
+<span class="kr">data</span> <span class="kt">Prop</span> <span class="ow">:</span> <span class="kt">Set</span> <span class="kr">where</span>
+  <span class="nf">Var</span>              <span class="ow">:</span> <span class="kt">Fin</span> n <span class="ow">→</span> <span class="kt">Prop</span>
+  <span class="nf">⊤</span>                <span class="ow">:</span> <span class="kt">Prop</span>
+  <span class="nf">⊥</span>                <span class="ow">:</span> <span class="kt">Prop</span>
+  _∧_ _∨_ _⇒_ _⇔_  <span class="ow">:</span> <span class="o">(</span>φ ψ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="ow">→</span> <span class="kt">Prop</span>
+  <span class="nf">¬_</span>               <span class="ow">:</span> <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="ow">→</span> <span class="kt">Prop</span>
+
+<span class="kr">infix</span>  <span class="mi">11</span> ¬_
+<span class="kr">infixl</span> <span class="mi">8</span> _∧_ _∨_
+<span class="kr">infixr</span> <span class="mi">7</span> _⇒_ _⇔_
+
+<span class="c1">-- Context is a list (set) of hypotesis and axioms.</span>
+
+<span class="nf">Ctxt</span> <span class="ow">:</span> <span class="kt">Set</span>
+<span class="kt">Ctxt</span> <span class="ow">=</span> <span class="kt">List</span> <span class="kt">Prop</span>
+
+<span class="kr">infixl</span> <span class="mi">5</span> _,_
+<span class="nf">_,_</span> <span class="ow">:</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Prop</span> <span class="ow">→</span> <span class="kt">Ctxt</span>
+Γ , φ <span class="ow">=</span> Γ ++ [ φ ]
+
+<span class="nf">∅</span> <span class="ow">:</span> <span class="kt">Ctxt</span>
+∅ <span class="ow">=</span> []
+
+<span class="kr">infix</span> <span class="mi">30</span> _⨆_
+<span class="nf">_⨆_</span> <span class="ow">:</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Ctxt</span>
+Γ ⨆ Δ <span class="ow">=</span> Γ ++ Δ
+
+<span class="kr">infix</span> <span class="mi">4</span> _∈_
+<span class="kr">data</span> _∈_ <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="ow">:</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Set</span> <span class="kr">where</span>
+  <span class="nf">here</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> φ ∈ Γ , φ
+  <span class="nf">there</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>ψ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="ow">→</span> φ ∈ Γ <span class="ow">→</span> φ ∈ Γ , ψ
+  <span class="nf">⨆-ext</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>Δ <span class="ow">:</span> <span class="kt">Ctxt</span><span class="o">)</span> <span class="ow">→</span> φ ∈ Γ <span class="ow">→</span> φ ∈ Γ ⨆ Δ
+
+<span class="nf">_⊆_</span> <span class="ow">:</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Ctxt</span> <span class="ow">→</span> <span class="kt">Set</span>
+Γ ⊆ Η <span class="ow">=</span> <span class="ow">∀</span> <span class="o">{</span>φ<span class="o">}</span> <span class="ow">→</span> φ ∈ Γ <span class="ow">→</span> φ ∈ Η
+
+<span class="c1">------------------------------------------------------------------------</span>
+<span class="c1">-- Theorem data type.</span>
+
+<span class="kr">infix</span> <span class="mi">3</span> _⊢_
+
+<span class="kr">data</span> _⊢_ <span class="ow">:</span> <span class="o">(</span>Γ <span class="ow">:</span> <span class="kt">Ctxt</span><span class="o">)(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="ow">→</span> <span class="kt">Set</span> <span class="kr">where</span>
+
+<span class="c1">-- Hyp.</span>
+
+  <span class="nf">assume</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>           <span class="ow">→</span> Γ , φ ⊢ φ
+
+  <span class="nf">axiom</span>    <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>           <span class="ow">→</span> φ ∈ Γ
+                                          <span class="ow">→</span> Γ ⊢ φ
+
+  <span class="nf">weaken</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>ψ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>       <span class="ow">→</span> Γ ⊢ φ
+                                          <span class="ow">→</span> Γ , ψ ⊢ φ
+
+  <span class="nf">weaken₂</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>ψ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>      <span class="ow">→</span> Γ ⊢ φ
+                                          <span class="ow">→</span> ψ ∷ Γ ⊢ φ
+<span class="c1">-- Top and Bottom.</span>
+
+  <span class="nf">⊤-intro</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span>                        <span class="ow">→</span> Γ ⊢ ⊤
+
+  <span class="nf">⊥-elim</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>           <span class="ow">→</span> Γ ⊢ ⊥
+                                          <span class="ow">→</span> Γ ⊢ φ
+<span class="c1">-- Negation.</span>
+
+  <span class="nf">¬-intro</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span>                    <span class="ow">→</span> Γ , φ ⊢ ⊥
+                                          <span class="ow">→</span> Γ ⊢ ¬ φ
+
+  <span class="nf">¬-elim</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span>                    <span class="ow">→</span> Γ ⊢ ¬ φ <span class="ow">→</span> Γ ⊢ φ
+                                          <span class="ow">→</span> Γ ⊢ ⊥
+<span class="c1">-- Conjunction.</span>
+
+  <span class="nf">∧-intro</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ ⊢ φ <span class="ow">→</span> Γ ⊢ ψ
+                                          <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+
+  <span class="nf">∧-proj₁</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+                                          <span class="ow">→</span> Γ ⊢ φ
+
+  <span class="nf">∧-proj₂</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+                                          <span class="ow">→</span> Γ ⊢ ψ
+<span class="c1">-- Disjunction.</span>
+
+  <span class="nf">∨-intro₁</span> <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>ψ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>       <span class="ow">→</span> Γ ⊢ φ
+                                          <span class="ow">→</span> Γ ⊢ φ ∨ ψ
+
+  <span class="nf">∨-intro₂</span> <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>ψ<span class="o">}</span> <span class="ow">→</span> <span class="o">(</span>φ <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>       <span class="ow">→</span> Γ ⊢ ψ
+                                          <span class="ow">→</span> Γ ⊢ φ ∨ ψ
+
+  <span class="nf">∨-elim</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ χ<span class="o">}</span>                 <span class="ow">→</span> Γ , φ ⊢ χ
+                                          <span class="ow">→</span> Γ , ψ ⊢ χ
+                                          <span class="ow">→</span> Γ , φ ∨ ψ ⊢ χ
+<span class="c1">-- Implication.</span>
+
+  <span class="nf">⇒-intro</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ , φ ⊢ ψ
+                                          <span class="ow">→</span> Γ ⊢ φ ⇒ ψ
+
+  <span class="nf">⇒-elim</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ ⊢ φ ⇒ ψ <span class="ow">→</span> Γ ⊢ φ
+                                          <span class="ow">→</span> Γ ⊢ ψ
+<span class="c1">-- Biconditional.</span>
+
+  <span class="nf">⇔-intro</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                  <span class="ow">→</span> Γ , φ ⊢ ψ
+                                          <span class="ow">→</span> Γ , ψ ⊢ φ
+                                          <span class="ow">→</span> Γ ⊢ φ ⇔ ψ
+
+  <span class="nf">⇔-elim₁</span> <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                   <span class="ow">→</span> Γ ⊢ φ <span class="ow">→</span> Γ ⊢ φ ⇔ ψ
+                                          <span class="ow">→</span> Γ ⊢ ψ
+
+  <span class="nf">⇔-elim₂</span> <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>                   <span class="ow">→</span> Γ ⊢ ψ <span class="ow">→</span> Γ ⊢ φ ⇔ ψ
+                                          <span class="ow">→</span> Γ ⊢ φ
+
+<span class="c1">------------------------------------------------------------------------</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Agda-Prop Library.</span>
+<span class="c1">-- Theorems of ∧ connective.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Nat</span> <span class="kr">using</span> <span class="o">(</span> ℕ <span class="o">)</span>
+
+<span class="kr">module</span> <span class="n">Data.Prop.Theorems.Conjunction</span> <span class="o">(</span> n <span class="ow">:</span> ℕ <span class="o">)</span> <span class="kr">where</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Prop.Syntax</span> n
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Prop.Theorems.Classical</span> n
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Function</span> <span class="kr">using</span> <span class="o">(</span> _$_ ; _∘_  <span class="o">)</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="nf">∧-assoc</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ φ ∧ <span class="o">(</span>ψ ∧ ω<span class="o">)</span>
+  <span class="ow">→</span> Γ ⊢ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> ∧ ω
+
+<span class="nf">∧-comm</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+  <span class="ow">→</span> Γ ⊢ ψ ∧ φ
+
+<span class="nf">∧-dist₁</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ φ ∧ <span class="o">(</span>ψ ∨ ω<span class="o">)</span>
+  <span class="ow">→</span> Γ ⊢ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> ∨ <span class="o">(</span>φ ∧ ω<span class="o">)</span>
+
+<span class="nf">∧-dist₂</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> ∨ <span class="o">(</span>φ ∧ ω<span class="o">)</span>
+  <span class="ow">→</span> Γ ⊢ φ ∧ <span class="o">(</span>ψ ∨ ω<span class="o">)</span>
+
+<span class="nf">∧-dist</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ φ ∧ <span class="o">(</span>ψ ∨ ω<span class="o">)</span> ⇔ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> ∨ <span class="o">(</span>φ ∧ ω<span class="o">)</span>
+
+<span class="nf">∧-dmorgan₁</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span>
+  <span class="ow">→</span> Γ ⊢ ¬ φ ∨ ¬ ψ
+<span class="kp">¬∧-to-¬∨¬</span> <span class="ow">=</span> <span class="kp">∧-dmorgan₁</span>
+
+<span class="nf">∧-dmorgan₂</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ ¬ φ ∨ ¬ ψ
+  <span class="ow">→</span> Γ ⊢ ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span>
+<span class="kp">¬∨¬-to-¬∧</span> <span class="ow">=</span> <span class="kp">∧-dmorgan₂</span>
+
+<span class="nf">∧-dmorgan</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ ¬ φ ∨ ¬ ψ ⇔ ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span>
+¬∨¬-⇔-¬∧ <span class="ow">=</span> <span class="kp">∧-dmorgan</span>
+
+<span class="nf">subst⊢∧₁</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ φ ⇒ ω
+  <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+  <span class="ow">→</span> Γ ⊢ ω ∧ ψ
+
+<span class="nf">subst⊢∧₂</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ψ ω<span class="o">}</span>
+  <span class="ow">→</span> Γ ⊢ ψ ⇒ ω
+  <span class="ow">→</span> Γ ⊢ φ ∧ ψ
+  <span class="ow">→</span> Γ ⊢ φ ∧ ω
+
+<span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Proofs.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kp">∧-assoc</span> Γ⊢φ∧ψ∧ω <span class="ow">=</span>
+  <span class="kp">∧-intro</span>
+    <span class="o">(</span><span class="kp">∧-intro</span>
+      <span class="o">(</span><span class="kp">∧-proj₁</span>  Γ⊢φ∧ψ∧ω<span class="o">)</span>
+      <span class="o">((</span><span class="kp">∧-proj₁</span> ∘ <span class="kp">∧-proj₂</span><span class="o">)</span> Γ⊢φ∧ψ∧ω<span class="o">))</span>
+    <span class="o">((</span><span class="kp">∧-proj₂</span> ∘ <span class="kp">∧-proj₂</span><span class="o">)</span> Γ⊢φ∧ψ∧ω<span class="o">)</span>
+
+<span class="kp">∧-comm</span> Γ⊢φ∧ψ <span class="ow">=</span>
+  <span class="kp">∧-intro</span>
+    <span class="o">(</span><span class="kp">∧-proj₂</span> Γ⊢φ∧ψ<span class="o">)</span>
+    <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ∧ψ<span class="o">)</span>
+
+<span class="kp">∧-dist₁</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}{</span>ω<span class="o">}</span> Γ⊢φ∧ψ∨ω <span class="ow">=</span>
+  <span class="kp">⇒-elim</span>
+    <span class="o">(</span><span class="kp">⇒-intro</span> $
+      <span class="kp">∨-elim</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+        <span class="o">(</span><span class="kp">∨-intro₁</span> <span class="o">(</span>φ ∧ ω<span class="o">)</span>
+          <span class="o">(</span><span class="kp">∧-intro</span>
+            <span class="o">(</span><span class="kp">weaken</span> ψ <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ∧ψ∨ω<span class="o">))</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> ψ<span class="o">)))</span>
+        <span class="o">(</span><span class="kp">∨-intro₂</span> <span class="o">(</span>φ ∧ ψ<span class="o">)</span>
+          <span class="o">(</span><span class="kp">∧-intro</span>
+            <span class="o">(</span><span class="kp">weaken</span> ω  <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ∧ψ∨ω<span class="o">))</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> ω<span class="o">))))</span>
+    <span class="o">(</span><span class="kp">∧-proj₂</span> Γ⊢φ∧ψ∨ω<span class="o">)</span>
+
+<span class="kp">∧-dist₂</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}{</span>ω<span class="o">}</span> <span class="ow">=</span>
+  <span class="kp">⇒-elim</span>
+    <span class="o">(</span><span class="kp">⇒-intro</span>
+      <span class="o">(</span><span class="kp">∨-elim</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+        <span class="o">(</span><span class="kp">∧-intro</span>
+          <span class="o">(</span><span class="kp">∧-proj₁</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ ψ<span class="o">)))</span>
+          <span class="o">(</span><span class="kp">∨-intro₁</span> ω
+            <span class="o">(</span><span class="kp">∧-proj₂</span>
+              <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ ψ<span class="o">)))))</span>
+        <span class="o">(</span><span class="kp">∧-intro</span>
+          <span class="o">(</span><span class="kp">∧-proj₁</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ ω<span class="o">)))</span>
+          <span class="o">(</span><span class="kp">∨-intro₂</span> ψ
+            <span class="o">(</span><span class="kp">∧-proj₂</span>
+              <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ ω<span class="o">)))))))</span>
+
+<span class="kp">∧-dist</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}{</span>ω<span class="o">}</span> <span class="ow">=</span>
+  <span class="kp">⇔-intro</span>
+    <span class="o">(</span><span class="kp">∧-dist₁</span> <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ <span class="o">(</span>ψ ∨ ω<span class="o">))))</span>
+    <span class="o">(</span><span class="kp">∧-dist₂</span> <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>φ ∧ ψ ∨ <span class="o">(</span>φ ∧ ω<span class="o">))))</span>
+
+<span class="kp">∧-dmorgan₁</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}</span> <span class="ow">=</span>
+  <span class="kp">⇒-elim</span> $
+    <span class="kp">⇒-intro</span> $
+      <span class="kt">RAA</span> $
+        <span class="kp">¬-elim</span>
+          <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span>¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">))</span> $
+            <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> $ ¬ <span class="o">(</span>φ ∧ ψ<span class="o">))</span>
+          <span class="o">(</span><span class="kp">∧-intro</span>
+            <span class="o">(</span><span class="kt">RAA</span>
+              <span class="o">(</span><span class="kp">¬-elim</span>
+                <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span>¬ φ<span class="o">)</span> $
+                  <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)}</span> $ ¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">))</span>
+                <span class="o">(</span><span class="kp">∨-intro₁</span> <span class="o">(</span>¬ ψ<span class="o">)</span>
+                  <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> , ¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">)}</span> $ ¬ φ<span class="o">))))</span>
+            <span class="o">(</span><span class="kt">RAA</span>
+              <span class="o">(</span><span class="kp">¬-elim</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> , ¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">)</span> , ¬ ψ<span class="o">}</span>
+                <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span>¬ ψ<span class="o">)</span> $
+                  <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)}</span> $ ¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">))</span>
+                <span class="o">(</span><span class="kp">∨-intro₂</span> <span class="o">(</span>¬ φ<span class="o">)</span>
+                  <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ <span class="o">(</span>φ ∧ ψ<span class="o">)</span> , ¬ <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">)}</span> $ ¬ ψ <span class="o">)))))</span>
+
+<span class="kp">∧-dmorgan₂</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}</span> <span class="ow">=</span>
+  <span class="kp">⇒-elim</span> $
+    <span class="kp">⇒-intro</span> $
+      <span class="kp">∨-elim</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+        <span class="o">(</span><span class="kp">¬-intro</span> $
+          <span class="kp">¬-elim</span>
+            <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span>φ ∧ ψ<span class="o">)</span> $
+              <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>¬ φ<span class="o">))</span>
+            <span class="o">(</span><span class="kp">∧-proj₁</span> $
+              <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ φ<span class="o">}</span> <span class="o">(</span>φ ∧ ψ<span class="o">)))</span>
+        <span class="o">(</span><span class="kp">¬-intro</span> $
+          <span class="kp">¬-elim</span>
+            <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span>φ ∧ ψ<span class="o">)</span> $ <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>¬ ψ<span class="o">))</span>
+          <span class="o">(</span><span class="kp">∧-proj₂</span> $
+            <span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ , ¬ ψ<span class="o">}</span> <span class="o">(</span>φ ∧ ψ<span class="o">)))</span>
+
+<span class="kp">∧-dmorgan</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}</span> <span class="ow">=</span>
+  <span class="kp">⇔-intro</span>
+    <span class="o">(</span><span class="kp">∧-dmorgan₂</span>
+      <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>¬ φ ∨ ¬ ψ<span class="o">)))</span>
+    <span class="o">(</span><span class="kp">∧-dmorgan₁</span>
+      <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">(</span>¬ <span class="o">(</span>φ ∧ ψ<span class="o">))))</span>
+
+<span class="kp">subst⊢∧₁</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}</span> Γ⊢φ⇒ψ Γ⊢φ∧ψ <span class="ow">=</span>
+  <span class="kp">∧-intro</span>
+    <span class="o">(</span><span class="kp">⇒-elim</span> <span class="o">(</span><span class="kp">∧-proj₁</span> <span class="o">(</span><span class="kp">∧-intro</span> Γ⊢φ⇒ψ Γ⊢φ∧ψ<span class="o">))</span> <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ∧ψ<span class="o">))</span>
+    <span class="o">(</span><span class="kp">∧-proj₂</span> Γ⊢φ∧ψ<span class="o">)</span>
+
+<span class="kp">subst⊢∧₂</span> <span class="o">{</span>Γ<span class="o">}{</span>φ<span class="o">}{</span>ψ<span class="o">}</span> Γ⊢φ⇒ψ Γ⊢φ∧ψ <span class="ow">=</span>
+  <span class="kp">∧-intro</span>
+    <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ∧ψ<span class="o">)</span>
+    <span class="o">(</span><span class="kp">⇒-elim</span> Γ⊢φ⇒ψ <span class="o">(</span><span class="kp">∧-proj₂</span> Γ⊢φ∧ψ<span class="o">))</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Athena version 0.1-21d73e9.</span>
+<span class="c1">-- TSTP file: test/prop-pack/problems/conjunction/conj-3.tstp.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">module</span> <span class="n">conj</span>-3 <span class="kr">where</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">ATP.Metis</span> <span class="mi">2</span> public
+<span class="kr">open</span> <span class="kr">import</span> <span class="n">Data.Prop</span> <span class="mi">2</span> public
+
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="c1">-- Variables.</span>
+
+<span class="nf">p</span> <span class="ow">:</span> <span class="kt">Prop</span>
+p <span class="ow">=</span> <span class="kt">Var</span> <span class="o">(</span># <span class="mi">0</span><span class="o">)</span>
+
+<span class="nf">q</span> <span class="ow">:</span> <span class="kt">Prop</span>
+q <span class="ow">=</span> <span class="kt">Var</span> <span class="o">(</span># <span class="mi">1</span><span class="o">)</span>
+
+<span class="c1">-- Axiom.</span>
+
+<span class="nf">a</span> <span class="ow">:</span> <span class="kt">Prop</span>
+a <span class="ow">=</span> <span class="o">(</span>p ∧ q<span class="o">)</span>
+
+<span class="c1">-- Premise.</span>
+
+<span class="nf">Γ</span> <span class="ow">:</span> <span class="kt">Ctxt</span>
+Γ <span class="ow">=</span> [ a ]
+
+<span class="c1">-- Conjecture.</span>
+
+<span class="nf">goal</span> <span class="ow">:</span> <span class="kt">Prop</span>
+goal <span class="ow">=</span> <span class="o">(</span>q ∧ p<span class="o">)</span>
+
+<span class="c1">-- Subgoals.</span>
+
+<span class="nf">subgoal₀</span> <span class="ow">:</span> <span class="kt">Prop</span>
+subgoal₀ <span class="ow">=</span> q
+
+<span class="nf">subgoal₁</span> <span class="ow">:</span> <span class="kt">Prop</span>
+subgoal₁ <span class="ow">=</span> <span class="o">(</span>q ⇒ p<span class="o">)</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Proof.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="nf">proof₀</span> <span class="ow">:</span> Γ ⊢ subgoal₀
+proof₀ <span class="ow">=</span>
+  <span class="o">(</span><span class="kt">RAA</span>
+    <span class="o">(</span><span class="kn">atp-canonicalize</span>
+      <span class="o">(</span><span class="kn">atp-simplify</span>
+        <span class="o">(</span><span class="kn">atp-canonicalize</span>
+          <span class="o">(</span><span class="kn">atp-strip</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+              <span class="o">(</span><span class="kn">atp-negate</span> subgoal₀<span class="o">))))</span>
+        <span class="o">(</span><span class="kn">atp-conjunct</span> <span class="o">(</span>q<span class="o">)</span>
+          <span class="o">(</span><span class="kn">atp-canonicalize</span>
+            <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span><span class="kn">atp-negate</span> subgoal₀<span class="o">)</span>
+              <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> ∅<span class="o">}</span> a<span class="o">)))))))</span>
+
+<span class="nf">proof₁</span> <span class="ow">:</span> Γ ⊢ subgoal₁
+proof₁ <span class="ow">=</span>
+  <span class="o">(</span><span class="kt">RAA</span>
+    <span class="o">(</span><span class="kn">atp-canonicalize</span>
+      <span class="o">(</span><span class="kn">atp-simplify</span>
+        <span class="o">(</span><span class="kn">atp-conjunct</span> <span class="o">(</span>q<span class="o">)</span>
+          <span class="o">(</span><span class="kn">atp-canonicalize</span>
+            <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span><span class="kn">atp-negate</span> subgoal₁<span class="o">)</span>
+              <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> ∅<span class="o">}</span> a<span class="o">))))</span>
+        <span class="o">(</span><span class="kn">atp-simplify</span>
+          <span class="o">(</span><span class="kn">atp-canonicalize</span>
+            <span class="o">(</span><span class="kn">atp-strip</span>
+              <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+                <span class="o">(</span><span class="kn">atp-negate</span> subgoal₁<span class="o">))))</span>
+          <span class="o">(</span><span class="kn">atp-conjunct</span> <span class="o">(</span>p<span class="o">)</span>
+            <span class="o">(</span><span class="kn">atp-canonicalize</span>
+              <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span><span class="kn">atp-negate</span> subgoal₁<span class="o">)</span>
+                <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> ∅<span class="o">}</span> a<span class="o">))))))))</span>
+
+<span class="nf">proof</span> <span class="ow">:</span> Γ ⊢ goal
+proof <span class="ow">=</span>
+  <span class="kp">⇒-elim</span>
+    <span class="kn">atp-splitGoal</span>
+    <span class="o">(</span><span class="kp">∧-intro</span> proof₀ proof₁<span class="o">)</span>
+
+<span class="c1">------------------------------------------------------------------------------</span>
+<span class="c1">-- Proof.</span>
+<span class="c1">------------------------------------------------------------------------------</span>
+
+<span class="nf">proof₀</span> <span class="ow">:</span> Γ ⊢ subgoal₀
+proof₀ <span class="ow">=</span>
+  <span class="o">(</span><span class="kt">RAA</span>
+    <span class="o">(</span><span class="kn">atp-canonicalize</span>
+      <span class="o">(</span><span class="kn">atp-simplify</span>
+        <span class="o">(</span><span class="kn">atp-canonicalize</span>
+          <span class="o">(</span><span class="kn">atp-strip</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span>
+              <span class="o">(</span><span class="kn">atp-negate</span> subgoal₀<span class="o">))))</span>
+        <span class="o">(</span><span class="kn">atp-canonicalize</span>
+          <span class="o">(</span><span class="kp">weaken</span> <span class="o">(</span><span class="kn">atp-negate</span> subgoal₀<span class="o">)</span>
+            <span class="o">(</span><span class="kp">assume</span> <span class="o">{</span>Γ <span class="ow">=</span> ∅<span class="o">}</span> a₁<span class="o">))))))</span>
+
+<span class="nf">proof</span> <span class="ow">:</span> Γ ⊢ goal
+proof <span class="ow">=</span>
+  <span class="kp">⇒-elim</span>
+    <span class="kn">atp-splitGoal</span>
+    proof₀
+
+<span class="nf">atp-conjunct</span>
+  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ<span class="o">}</span>
+  <span class="ow">→</span> <span class="o">(</span>ω <span class="ow">:</span> <span class="kt">Prop</span><span class="o">)</span>
+  <span class="ow">→</span> Γ ⊢ φ
+  <span class="ow">→</span> Γ ⊢ conjunct φ ω
+
+<span class="kn">atp-conjunct</span> <span class="o">{</span>Γ<span class="o">}</span> <span class="o">{</span>φ ∧ ψ<span class="o">}</span> ω Γ⊢φ
+  <span class="kr">with</span> ⌊ <span class="kp">eq</span> φ ω ⌋ <span class="ow">|</span> ⌊ <span class="kp">eq</span> ψ ω ⌋
+<span class="ow">...</span> <span class="ow">|</span> true  <span class="ow">|</span> _     <span class="ow">=</span> <span class="kp">∧-proj₁</span> Γ⊢φ
+<span class="ow">...</span> <span class="ow">|</span> false <span class="ow">|</span> true  <span class="ow">=</span> <span class="kp">∧-proj₂</span> Γ⊢φ
+<span class="ow">...</span> <span class="ow">|</span> false <span class="ow">|</span> false <span class="ow">=</span>
+  <span class="kn">atp-conjunct</span> <span class="o">{</span>Γ <span class="ow">=</span> Γ<span class="o">}</span> <span class="o">{</span>φ <span class="ow">=</span> φ<span class="o">}</span> ω <span class="o">(</span><span class="kp">∧-proj₁</span> Γ⊢φ<span class="o">)</span>
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span><span class="kt">Var</span> x<span class="o">}</span>  _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>⊤<span class="o">}</span>      _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>⊥<span class="o">}</span>      _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>φ ∨ ψ<span class="o">}</span>  _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>φ ⇒ ψ<span class="o">}</span>  _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>φ ⇔ ψ<span class="o">}</span>  _ <span class="ow">=</span> id
+<span class="kn">atp-conjunct</span> <span class="o">{</span>_<span class="o">}</span> <span class="o">{</span>¬ φ<span class="o">}</span>    _ <span class="ow">=</span> id
+</pre></div>
+</body>
+</html>
